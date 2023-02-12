@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace ThreeStudio.IPFS.Tests
 {
     [TestFixture]
-    public class EncodingTest
+    public class Base32Test
     {
         private struct Base32TestData
         {
@@ -48,9 +48,9 @@ namespace ThreeStudio.IPFS.Tests
         };
 
         [Test]
-        public void Encode()
+        public void Base32Encode()
         {
-            foreach(Base32TestData test in base32Tests)
+            foreach(var test in base32Tests)
             {
                 string actual = EncodingFunctionLibrary.EncodeBase32(test.Input);
                 string expected = test.Output;
@@ -59,9 +59,9 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public void Decode()
+        public void Base32Decode()
         {
-            foreach(Base32TestData test in base32Tests)
+            foreach(var test in base32Tests)
             {
                 bool success = EncodingFunctionLibrary.DecodeBase32(test.Output, out string actual);
                 Assert.IsTrue(success);
