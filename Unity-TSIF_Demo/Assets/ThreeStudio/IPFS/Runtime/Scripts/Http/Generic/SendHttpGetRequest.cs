@@ -1,5 +1,6 @@
 ﻿// Copyright 2023 3S Game Studio OU. All Rights Reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreeStudio.IPFS.Internal;
 using UnityEngine;
@@ -68,7 +69,7 @@ namespace ThreeStudio.IPFS.Http
                 if(response.Headers != null)
                 {
                     Debug.Log($"[{id}] Headers:");
-                    foreach(var header in response.Headers)
+                    foreach(KeyValuePair<string, string> header in response.Headers)
                     {
                         Debug.Log($"[{id}] {header.Key}: {header.Value}");
                     }

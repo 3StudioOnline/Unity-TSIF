@@ -14,7 +14,7 @@ namespace ThreeStudio.IPFS.Internal
         /// <returns></returns>
         public static Task AsIpfsTask(this AsyncOperation asyncOperation)
         {
-            var task = new TaskCompletionSource<bool>();
+            TaskCompletionSource<bool> task = new TaskCompletionSource<bool>();
             asyncOperation.completed += _ => { task.SetResult(true); };
             return task.Task;
         }

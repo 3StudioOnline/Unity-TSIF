@@ -76,7 +76,7 @@ namespace ThreeStudio.IPFS
             }
             #endif
 
-            var body = new List<byte>();
+            List<byte> body = new List<byte>();
             body.AddRange(HttpUtils.MultipartFormData_AddFile(boundary, saveAs, dataToUpload));
             body.AddRange(HttpUtils.MultipartFormData_End(boundary));
 
@@ -87,7 +87,7 @@ namespace ThreeStudio.IPFS
             }
             #endif
 
-            var headers = HttpUtils.MultipartFormData_BuildHeaders(boundary, bearerToken);
+            Dictionary<string, string> headers = HttpUtils.MultipartFormData_BuildHeaders(boundary, bearerToken);
 
             (bool success, string errorMessage, HttpResponse response) result = await HttpRequest.SendPostRequestAsync(
                 ipfsPinningServiceConfig.Url + "/upload",

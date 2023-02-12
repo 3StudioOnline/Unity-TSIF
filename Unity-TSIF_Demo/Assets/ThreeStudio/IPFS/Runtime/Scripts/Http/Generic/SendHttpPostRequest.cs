@@ -65,7 +65,7 @@ namespace ThreeStudio.IPFS.Http
 
             if(headers != null)
             {
-                foreach(var header in headers)
+                foreach(KeyValuePair<string, string> header in headers)
                 {
                     #if DEVELOPMENT_BUILD || UNITY_EDITOR
                     if(Ipfs.IsDebugEnabled(Ipfs.DebugMode.UploadFileOrData))
@@ -104,7 +104,7 @@ namespace ThreeStudio.IPFS.Http
             {
                 Debug.Log($"[{id}] Response received. HTTP Status Code: {response.StatusCode}");
                 Debug.Log($"[{id}] Headers:");
-                foreach(var header in response.Headers)
+                foreach(KeyValuePair<string, string> header in response.Headers)
                 {
                     Debug.Log($"[{id}] {header.Key}: {header.Value}");
                 }

@@ -176,7 +176,7 @@ namespace ThreeStudio.IPFS.Internal
             entry += $"Content-Type: {mimeType}\r\n";
             entry += "\r\n";
 
-            var buffer = new List<byte>();
+            List<byte> buffer = new List<byte>();
             buffer.AddRange(StringUtils.StringToBytes(entry));
             buffer.AddRange(contentAsBytes);
             buffer.AddRange(StringUtils.StringToBytes("\r\n"));

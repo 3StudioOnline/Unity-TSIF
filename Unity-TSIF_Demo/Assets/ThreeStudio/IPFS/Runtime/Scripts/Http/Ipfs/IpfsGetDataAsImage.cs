@@ -39,7 +39,7 @@ namespace ThreeStudio.IPFS
             IpfsHttpGatewayConfig ipfsHttpGatewayConfig,
             IpfsAddress ipfsAddress)
         {
-            var result = await GetDataAsync(
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetDataAsync(
                 ipfsHttpGatewayConfig,
                 ipfsAddress);
 
