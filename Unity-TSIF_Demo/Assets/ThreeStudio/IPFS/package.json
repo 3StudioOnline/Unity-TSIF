@@ -1,0 +1,32 @@
+{
+  "name": "threestudio.ipfs",
+  "displayName": "IPFS",
+  "version": "1.0.0",
+  "unity": "2021.3",
+  "documentationUrl": "https://https://3studioonline.github.io/Unity-TSIF-Documentation/",
+  "changelogUrl": "https://https://3studioonline.github.io/Unity-TSIF-Documentation/changelog",
+  "description": "IPFS is a decentralized storage protocol, that allows you to upload, download and stream to memory any kind of files.",
+  "keywords": [
+    "IPFS",
+    "InterPlanetary File System",
+    "Filesystem",
+    "File System",
+    "Files",
+    "HTTP",
+    "Gateway",
+    "Pinning",
+    "Pinning Services",
+    "Web3",
+    "Web3.Storage",
+    "NFT",
+    "NFT.Storage",
+    "dweb.link"
+  ],
+  "category": "Essentials",
+  "dependencies": {
+  },
+  "author": {
+    "url": "https://3studio.online",
+    "name": "3S Game Studio OU"
+  }
+}

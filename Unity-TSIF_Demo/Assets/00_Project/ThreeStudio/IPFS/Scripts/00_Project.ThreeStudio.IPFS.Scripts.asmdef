@@ -1,0 +1,16 @@
+{
+    "name": "00_Project.ThreeStudio.IPFS.Scripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:325b68220bc7b6749b14721780b688e7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

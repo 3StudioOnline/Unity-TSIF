@@ -1,0 +1,22 @@
+{
+    "name": "00_Project.ThreeStudio.IPFS.Tests.EditMode",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:325b68220bc7b6749b14721780b688e7",
+        "GUID:62bfe37d77214acbacdc22cad53aee2e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

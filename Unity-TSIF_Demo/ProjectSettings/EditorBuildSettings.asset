@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsOverview.unity
+    guid: a972b5069d98d3c49b7f824071c78424
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsExamples/IpfsDownloadFile.unity
+    guid: 01edb341fee938c40a8938bfd4992013
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsExamples/IpfsGetData.unity
+    guid: 795a9e9828986df45b609725d5e85aa9
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsExamples/IpfsGetDataAsImage.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsExamples/IpfsGetDataAsString.unity
+    guid: fbc31961ccf0b6f4995a62554d0b18bc
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsExamples/IpfsUploadData.unity
+    guid: e047f5863f74f6e4ba3397efc8ba6556
+  - enabled: 1
+    path: Assets/ThreeStudio/IPFS/Examples/Scenes/IpfsExamples/IpfsUploadFile.unity
+    guid: 2750bda2c726f894e8c6dc5e6f958ca6
+  m_configObjects: {}
