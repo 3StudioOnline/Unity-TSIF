@@ -7,28 +7,30 @@ namespace ThreeStudio.IPFS
     public static class Ipfs
     {
         #if DEVELOPMENT_BUILD || UNITY_EDITOR
-        private static readonly Dictionary<DebugMode, bool> DebugEnabledMap = new();
+        private static readonly Dictionary<DebugMode, bool> DebugEnabledMap = new Dictionary<DebugMode, bool>();
         #endif
 
-        private static Dictionary<IpfsHttpGateway, IpfsHttpGatewayConfig> IpfsHttpGatewayConfigs { get; } = new()
-        {
-            { IpfsHttpGateway.Localhost, new IpfsHttpGatewayConfig("http://127.0.0.1:8080") },
-            { IpfsHttpGateway.IpfsIo, new IpfsHttpGatewayConfig("https://ipfs.io") },
-            { IpfsHttpGateway.GatewayIpfsIo, new IpfsHttpGatewayConfig("https://gateway.ipfs.io") },
-            { IpfsHttpGateway.CloudflareIpfsCom, new IpfsHttpGatewayConfig("https://cloudflare-ipfs.com") },
-            { IpfsHttpGateway.NftstorageLink, new IpfsHttpGatewayConfig("https://nftstorage.link") },
-            { IpfsHttpGateway.DwebLink, new IpfsHttpGatewayConfig("https://dweb.link") },
-            { IpfsHttpGateway.GatewayPinataCloud, new IpfsHttpGatewayConfig("https://gateway.pinata.cloud") },
-            { IpfsHttpGateway.IpfsInfuraIo, new IpfsHttpGatewayConfig("https://ipfs.infura.io") },
-            { IpfsHttpGateway.InfuraIpfsIo, new IpfsHttpGatewayConfig("https://infura-ipfs.io") },
-            { IpfsHttpGateway.IpfsGatewayCloud, new IpfsHttpGatewayConfig("https://ipfs-gateway.cloud") },
-        };
+        private static Dictionary<IpfsHttpGateway, IpfsHttpGatewayConfig> IpfsHttpGatewayConfigs { get; } =
+            new Dictionary<IpfsHttpGateway, IpfsHttpGatewayConfig>
+            {
+                { IpfsHttpGateway.Localhost, new IpfsHttpGatewayConfig("http://127.0.0.1:8080") },
+                { IpfsHttpGateway.IpfsIo, new IpfsHttpGatewayConfig("https://ipfs.io") },
+                { IpfsHttpGateway.GatewayIpfsIo, new IpfsHttpGatewayConfig("https://gateway.ipfs.io") },
+                { IpfsHttpGateway.CloudflareIpfsCom, new IpfsHttpGatewayConfig("https://cloudflare-ipfs.com") },
+                { IpfsHttpGateway.NftstorageLink, new IpfsHttpGatewayConfig("https://nftstorage.link") },
+                { IpfsHttpGateway.DwebLink, new IpfsHttpGatewayConfig("https://dweb.link") },
+                { IpfsHttpGateway.GatewayPinataCloud, new IpfsHttpGatewayConfig("https://gateway.pinata.cloud") },
+                { IpfsHttpGateway.IpfsInfuraIo, new IpfsHttpGatewayConfig("https://ipfs.infura.io") },
+                { IpfsHttpGateway.InfuraIpfsIo, new IpfsHttpGatewayConfig("https://infura-ipfs.io") },
+                { IpfsHttpGateway.IpfsGatewayCloud, new IpfsHttpGatewayConfig("https://ipfs-gateway.cloud") },
+            };
 
-        private static Dictionary<IpfsPinningService, IpfsPinningServiceConfig> IpfsPinningServiceConfigs { get; } = new()
-        {
-            { IpfsPinningService.Web3Storage, new IpfsPinningServiceConfig("Web3.storage", "https://api.web3.storage") },
-            { IpfsPinningService.NftStorage, new IpfsPinningServiceConfig("NFT.storage", "https://api.nft.storage") },
-        };
+        private static Dictionary<IpfsPinningService, IpfsPinningServiceConfig> IpfsPinningServiceConfigs { get; } =
+            new Dictionary<IpfsPinningService, IpfsPinningServiceConfig>
+            {
+                { IpfsPinningService.Web3Storage, new IpfsPinningServiceConfig("Web3.storage", "https://api.web3.storage") },
+                { IpfsPinningService.NftStorage, new IpfsPinningServiceConfig("NFT.storage", "https://api.nft.storage") },
+            };
 
         public enum DebugMode
         {
@@ -55,7 +57,7 @@ namespace ThreeStudio.IPFS
             }
             #endif
         }
-        
+
         /// <summary>
         /// Gets a IPFS HTTP Gateway.
         /// </summary>
@@ -65,7 +67,7 @@ namespace ThreeStudio.IPFS
         {
             return IpfsHttpGatewayConfigs[ipfsHttpGateway];
         }
-        
+
         /// <summary>
         /// Gets a IPFS Pinning Service.
         /// </summary>

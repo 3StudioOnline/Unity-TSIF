@@ -229,7 +229,7 @@ namespace ThreeStudio.IPFS.Internal
         {
             return a >> b;
         }
-        
+
         /// <summary>
         /// Generates a SHA-256 hash, always returns 32 bytes.
         /// </summary>
@@ -237,14 +237,14 @@ namespace ThreeStudio.IPFS.Internal
         /// <returns>Hash (32 bytes)</returns>
         public static byte[] Hash(byte[] bytes)
         {
-            Sha256 instance = new();
+            Sha256 instance = new Sha256();
             instance.Initialize();
             instance.Update(bytes, 0, bytes.Length);
 
             return instance.Digest();
         }
-        
-        
+
+
         /// <summary>
         /// Generates a SHA-256 hash, always returns 32 bytes.
         /// </summary>
@@ -254,7 +254,7 @@ namespace ThreeStudio.IPFS.Internal
         /// <returns>Hash (32 bytes)</returns>
         public static byte[] Hash(byte[] bytes, int index, int length)
         {
-            Sha256 instance = new();
+            Sha256 instance = new Sha256();
             instance.Initialize();
 
             if(bytes.Length <= 0)

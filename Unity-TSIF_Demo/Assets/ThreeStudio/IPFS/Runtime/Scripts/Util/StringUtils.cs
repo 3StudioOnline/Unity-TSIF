@@ -27,7 +27,7 @@ namespace ThreeStudio.IPFS.Internal
 
         public static string BytesToHex(byte[] input)
         {
-            StringBuilder result = new(input.Length * 2);
+            StringBuilder result = new StringBuilder(input.Length * 2);
             for(int i = 0; i < input.Length; ++i)
             {
                 ByteToHex(input[i], result);
@@ -35,7 +35,7 @@ namespace ThreeStudio.IPFS.Internal
 
             return result.ToString();
         }
-        
+
         /// <summary>
         /// Converts string into a byte array using UTF-8 encoding.
         /// </summary>
@@ -45,7 +45,7 @@ namespace ThreeStudio.IPFS.Internal
         {
             return Encoding.UTF8.GetBytes(text);
         }
-        
+
         /// <summary>
         /// Tries to convert a byte array into string using UTF-8 encoding.
         /// </summary>

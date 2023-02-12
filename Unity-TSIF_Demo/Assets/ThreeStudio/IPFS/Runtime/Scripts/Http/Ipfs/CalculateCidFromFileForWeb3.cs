@@ -19,7 +19,7 @@ namespace ThreeStudio.IPFS
         /// </param>
         public static async void CalculateCidFromFileForWeb3(string readFromFilepath, CalculateCidFromFileForWeb3Delegate responseDelegate)
         {
-            var result = await CalculateCidFromFileForWeb3Async(readFromFilepath);
+            (bool success, string errorMessage, string cid) result = await CalculateCidFromFileForWeb3Async(readFromFilepath);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.cid);
         }
 
@@ -40,7 +40,7 @@ namespace ThreeStudio.IPFS
                 return (false, e.Message, null);
             }
 
-            var result = await CalculateCidFromDataForWeb3Async(bytes);
+            (bool success, string errorMessage, string cid) result = await CalculateCidFromDataForWeb3Async(bytes);
             return (result.success, result.errorMessage, result.cid);
         }
     }

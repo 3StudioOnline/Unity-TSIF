@@ -30,7 +30,7 @@ namespace ThreeStudio.IPFS
             string saveAs,
             IpfsUploadDataDelegate responseDelegate)
         {
-            var result = await UploadDataAsync(
+            (bool success, string errorMessage, HttpResponse response, string cid) result = await UploadDataAsync(
                 ipfsPinningServiceConfig,
                 bearerToken,
                 dataToUpload,
@@ -76,7 +76,7 @@ namespace ThreeStudio.IPFS
             }
             #endif
 
-            List<byte> body = new();
+            var body = new List<byte>();
             body.AddRange(HttpUtils.MultipartFormData_AddFile(boundary, saveAs, dataToUpload));
             body.AddRange(HttpUtils.MultipartFormData_End(boundary));
 
@@ -89,7 +89,7 @@ namespace ThreeStudio.IPFS
 
             var headers = HttpUtils.MultipartFormData_BuildHeaders(boundary, bearerToken);
 
-            var result = await HttpRequest.SendPostRequestAsync(
+            (bool success, string errorMessage, HttpResponse response) result = await HttpRequest.SendPostRequestAsync(
                 ipfsPinningServiceConfig.Url + "/upload",
                 headers,
                 body.ToArray(),
