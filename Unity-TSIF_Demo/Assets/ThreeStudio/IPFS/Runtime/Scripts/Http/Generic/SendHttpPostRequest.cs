@@ -31,7 +31,7 @@ namespace ThreeStudio.IPFS.Http
             string id,
             HttpPostResponseDelegate responseDelegate)
         {
-            var result = await SendPostRequestAsync(url, headers, body, id);
+            (bool success, string errorMessage, HttpResponse response) result = await SendPostRequestAsync(url, headers, body, id);
             responseDelegate?.Invoke(result.response.Success, result.errorMessage, result.response);
         }
 
@@ -57,7 +57,7 @@ namespace ThreeStudio.IPFS.Http
             }
             #endif
 
-            using var webRequest = new UnityWebRequest();
+            using UnityWebRequest webRequest = new UnityWebRequest();
             webRequest.method = UnityWebRequest.kHttpVerbPOST;
             webRequest.url = url;
             webRequest.uploadHandler = new UploadHandlerRaw(body);
@@ -65,7 +65,7 @@ namespace ThreeStudio.IPFS.Http
 
             if(headers != null)
             {
-                foreach(var header in headers)
+                foreach(KeyValuePair<string, string> header in headers)
                 {
                     #if DEVELOPMENT_BUILD || UNITY_EDITOR
                     if(Ipfs.IsDebugEnabled(Ipfs.DebugMode.UploadFileOrData))
@@ -93,7 +93,7 @@ namespace ThreeStudio.IPFS.Http
 
             bool wasSuccessful = webRequest.result == UnityWebRequest.Result.Success;
             bool statusCodeOk = webRequest.responseCode >= 200 && webRequest.responseCode <= 299;
-            HttpResponse response = new();
+            HttpResponse response = new HttpResponse();
             response.Success = wasSuccessful && statusCodeOk;
             response.StatusCode = webRequest.responseCode;
             response.Headers = webRequest.GetResponseHeaders();
@@ -104,7 +104,7 @@ namespace ThreeStudio.IPFS.Http
             {
                 Debug.Log($"[{id}] Response received. HTTP Status Code: {response.StatusCode}");
                 Debug.Log($"[{id}] Headers:");
-                foreach(var header in response.Headers)
+                foreach(KeyValuePair<string, string> header in response.Headers)
                 {
                     Debug.Log($"[{id}] {header.Key}: {header.Value}");
                 }

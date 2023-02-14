@@ -49,7 +49,7 @@ namespace ThreeStudio.IPFS.Examples
             // Clear last result
             SetDownloadedData(null, null);
 
-            IpfsAddress ipfsAddress = new(_txtCid.text?.Trim(), _txtPath.text?.Trim());
+            IpfsAddress ipfsAddress = new IpfsAddress(_txtCid.text?.Trim(), _txtPath.text?.Trim());
 
             if(!ValidateInputs(out string validationErrorMessage, _txtCid.text))
             {
@@ -79,7 +79,7 @@ namespace ThreeStudio.IPFS.Examples
             }
 
             // Download
-            var gateway = ExampleUtils.GetSelectedValueFromDropdown<IpfsHttpGateway>(_cmbIpfsHttpGateway);
+            IpfsHttpGateway gateway = ExampleUtils.GetSelectedValueFromDropdown<IpfsHttpGateway>(_cmbIpfsHttpGateway);
             IpfsFunctionLibrary.DownloadFile(
                 Ipfs.GetIpfsHttpGatewayConfig(gateway),
                 new IpfsAddress(_txtCid.text, _txtPath.text),

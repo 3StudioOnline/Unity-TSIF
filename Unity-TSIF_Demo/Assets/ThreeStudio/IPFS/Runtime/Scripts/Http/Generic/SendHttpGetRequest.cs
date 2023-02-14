@@ -1,5 +1,6 @@
 ﻿// Copyright 2023 3S Game Studio OU. All Rights Reserved.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreeStudio.IPFS.Internal;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace ThreeStudio.IPFS.Http
             string id,
             HttpGetResponseDelegate responseDelegate)
         {
-            var result = await SendGetRequestAsync(url, id);
+            (bool success, string errorMessage, HttpResponse response) result = await SendGetRequestAsync(url, id);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.response);
         }
 
@@ -46,7 +47,7 @@ namespace ThreeStudio.IPFS.Http
             }
             #endif
 
-            using var webRequest = new UnityWebRequest();
+            using UnityWebRequest webRequest = new UnityWebRequest();
             webRequest.method = UnityWebRequest.kHttpVerbGET;
             webRequest.url = url;
             webRequest.downloadHandler = new DownloadHandlerBuffer();
@@ -55,7 +56,7 @@ namespace ThreeStudio.IPFS.Http
 
             bool wasSuccessful = webRequest.result == UnityWebRequest.Result.Success;
             bool statusCodeOk = webRequest.responseCode >= 200 && webRequest.responseCode <= 299;
-            HttpResponse response = new();
+            HttpResponse response = new HttpResponse();
             response.Success = wasSuccessful && statusCodeOk;
             response.StatusCode = webRequest.responseCode;
             response.Headers = webRequest.GetResponseHeaders();
@@ -68,7 +69,7 @@ namespace ThreeStudio.IPFS.Http
                 if(response.Headers != null)
                 {
                     Debug.Log($"[{id}] Headers:");
-                    foreach(var header in response.Headers)
+                    foreach(KeyValuePair<string, string> header in response.Headers)
                     {
                         Debug.Log($"[{id}] {header.Key}: {header.Value}");
                     }

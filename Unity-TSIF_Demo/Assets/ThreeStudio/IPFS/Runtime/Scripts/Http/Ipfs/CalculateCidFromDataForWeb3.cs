@@ -23,7 +23,7 @@ namespace ThreeStudio.IPFS
         /// </param>
         public static async void CalculateCidFromDataForWeb3(byte[] bytes, CalculateCidFromDataForWeb3Delegate responseDelegate)
         {
-            var result = await CalculateCidFromDataForWeb3Async(bytes);
+            (bool success, string errorMessage, string cid) result = await CalculateCidFromDataForWeb3Async(bytes);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.cid);
         }
 

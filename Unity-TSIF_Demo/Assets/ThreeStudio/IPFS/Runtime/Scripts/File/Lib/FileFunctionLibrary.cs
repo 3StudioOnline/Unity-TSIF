@@ -19,7 +19,7 @@ namespace ThreeStudio.IPFS
         {
             if(File.Exists(filepath))
             {
-                FileInfo fileInfo = new(filepath);
+                FileInfo fileInfo = new FileInfo(filepath);
                 outFileStatData.AccessTime = fileInfo.LastAccessTime;
                 outFileStatData.CreationTime = fileInfo.CreationTime;
                 outFileStatData.ModificationTime = fileInfo.LastWriteTime;
@@ -30,7 +30,7 @@ namespace ThreeStudio.IPFS
             }
             else if(Directory.Exists(filepath))
             {
-                DirectoryInfo dirInfo = new(filepath);
+                DirectoryInfo dirInfo = new DirectoryInfo(filepath);
                 outFileStatData.AccessTime = dirInfo.LastAccessTime;
                 outFileStatData.CreationTime = dirInfo.CreationTime;
                 outFileStatData.ModificationTime = dirInfo.LastWriteTime;
