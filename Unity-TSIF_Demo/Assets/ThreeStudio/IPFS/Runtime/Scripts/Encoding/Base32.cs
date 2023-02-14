@@ -74,7 +74,7 @@ namespace ThreeStudio.IPFS.Internal
         {
             int expectedLength = GetEncodedDataSize(length);
 
-            StringBuilder outBuffer = new(expectedLength);
+            StringBuilder outBuffer = new StringBuilder(expectedLength);
             Encode(source, length, outBuffer);
             return outBuffer.ToString();
         }

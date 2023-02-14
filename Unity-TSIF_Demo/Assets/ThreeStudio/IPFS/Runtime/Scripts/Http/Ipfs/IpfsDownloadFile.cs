@@ -40,7 +40,7 @@ namespace ThreeStudio.IPFS
             bool overwriteExistingFile,
             IpfsDownloadFileDelegate responseDelegate)
         {
-            var result = await DownloadFileAsync(
+            (bool success, string errorMessage, HttpResponse response) result = await DownloadFileAsync(
                 ipfsHttpGatewayConfig,
                 ipfsAddress,
                 writeToFilepath,
@@ -111,7 +111,7 @@ namespace ThreeStudio.IPFS
             }
             #endif
 
-            var result = await HttpRequest.SendGetRequestAsync(
+            (bool success, string errorMessage, HttpResponse response) result = await HttpRequest.SendGetRequestAsync(
                 $"{ipfsHttpGatewayConfig.Url}/ipfs/{cidOrPath}",
                 id);
 

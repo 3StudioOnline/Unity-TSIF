@@ -23,7 +23,7 @@ namespace ThreeStudio.IPFS
             IpfsAddress ipfsAddress,
             IpfsGetDataAsStringDelegate responseDelegate)
         {
-            var result = await GetDataAsync(ipfsHttpGatewayConfig, ipfsAddress);
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetDataAsync(ipfsHttpGatewayConfig, ipfsAddress);
             responseDelegate?.Invoke(
                 result.success,
                 result.errorMessage,
@@ -41,7 +41,7 @@ namespace ThreeStudio.IPFS
             IpfsHttpGatewayConfig ipfsHttpGatewayConfig,
             IpfsAddress ipfsAddress)
         {
-            var result = await GetDataAsync(
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetDataAsync(
                 ipfsHttpGatewayConfig,
                 ipfsAddress);
 

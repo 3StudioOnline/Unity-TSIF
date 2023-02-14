@@ -37,7 +37,7 @@ namespace ThreeStudio.IPFS.Tests
         public async Task CalculateCidFromDataForWeb3Async()
         {
             byte[] data = await File.ReadAllBytesAsync(TestUtils.GetTestResourceFilepath("3S Studio.png"));
-            var result = await IpfsFunctionLibrary.CalculateCidFromDataForWeb3Async(data);
+            (bool success, string errorMessage, string cid) result = await IpfsFunctionLibrary.CalculateCidFromDataForWeb3Async(data);
 
             Assert.That(result.success, Is.True);
             Assert.That(result.errorMessage, Is.Empty);
@@ -71,7 +71,7 @@ namespace ThreeStudio.IPFS.Tests
         public async Task CalculateCidFromFileForWeb3Async()
         {
             string filepath = TestUtils.GetTestResourceFilepath("3S Hello.txt");
-            var result = await IpfsFunctionLibrary.CalculateCidFromFileForWeb3Async(filepath);
+            (bool success, string errorMessage, string cid) result = await IpfsFunctionLibrary.CalculateCidFromFileForWeb3Async(filepath);
 
             Assert.That(result.success, Is.True);
             Assert.That(result.errorMessage, Is.Empty);

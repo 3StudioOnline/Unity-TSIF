@@ -63,7 +63,7 @@ namespace ThreeStudio.IPFS.Tests
         [Test]
         public async Task HttpRequestGet()
         {
-            var testData = _testGet;
+            HttpRequestTestData testData = _testGet;
 
             await Task.Delay(500);
 
@@ -91,11 +91,11 @@ namespace ThreeStudio.IPFS.Tests
         [Test]
         public async Task HttpRequestGetAsync()
         {
-            var testData = _testGet;
+            HttpRequestTestData testData = _testGet;
 
             await Task.Delay(500);
 
-            var result = await HttpRequest.SendGetRequestAsync(testData.Url, "1");
+            (bool success, string errorMessage, HttpResponse response) result = await HttpRequest.SendGetRequestAsync(testData.Url, "1");
 
             Assert.That(result.success, Is.True, $"success. Error Message: {result.errorMessage}");
             Assert.That(result.errorMessage, Is.Empty, "errorMessage");
@@ -107,7 +107,7 @@ namespace ThreeStudio.IPFS.Tests
         [Test]
         public async Task HttpRequestPost()
         {
-            var testData = _testPost;
+            HttpRequestTestData testData = _testPost;
 
             await Task.Delay(500);
 
@@ -137,11 +137,11 @@ namespace ThreeStudio.IPFS.Tests
         [Test]
         public async Task HttpRequestPostAsync()
         {
-            var testData = _testPost;
+            HttpRequestTestData testData = _testPost;
 
             await Task.Delay(500);
 
-            var result = await HttpRequest.SendPostRequestAsync(
+            (bool success, string errorMessage, HttpResponse response) result = await HttpRequest.SendPostRequestAsync(
                 testData.Url,
                 _defaultHeader,
                 StringUtils.StringToBytes(testData.RequestBody),

@@ -41,17 +41,17 @@ namespace ThreeStudio.IPFS
         /// NOTE: If this is true it does only mean that there was no error on the data transport layer (HTTP).
         /// </summary>
         public bool Success;
-        
+
         /// <summary>
         /// Response status code (HTTP status code, e.g. 200 -> "OK").
         /// </summary>
         public long StatusCode = -1;
-        
+
         /// <summary>
         /// Response headers in the format of "Key: Value".
         /// </summary>
         public Dictionary<string, string> Headers;
-        
+
         /// <summary>
         /// Response body.
         /// </summary>
@@ -105,7 +105,7 @@ namespace ThreeStudio.IPFS
         /// The content identifier.
         /// </summary>
         public readonly string Cid;
-        
+
         /// <summary>
         /// The optional path related to root CID.
         /// </summary>
@@ -117,7 +117,7 @@ namespace ThreeStudio.IPFS
             Path = path;
         }
     };
-    
+
     /// <summary>
     /// Holds info about a file or directory, e.g. its creation time, file size, etc.
     /// </summary>

@@ -23,7 +23,7 @@ namespace ThreeStudio.IPFS
             IpfsAddress ipfsAddress,
             IpfsGetDataAsImageDelegate responseDelegate)
         {
-            var result = await GetDataAsImageAsync(
+            (bool success, string errorMessage, HttpResponse response, Texture2D texture) result = await GetDataAsImageAsync(
                 ipfsHttpGatewayConfig,
                 ipfsAddress);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.response, result.texture);
@@ -39,7 +39,7 @@ namespace ThreeStudio.IPFS
             IpfsHttpGatewayConfig ipfsHttpGatewayConfig,
             IpfsAddress ipfsAddress)
         {
-            var result = await GetDataAsync(
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetDataAsync(
                 ipfsHttpGatewayConfig,
                 ipfsAddress);
 
