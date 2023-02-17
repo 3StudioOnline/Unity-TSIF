@@ -3,10 +3,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using _00_Project.ThreeStudio.IPFS.Tests.Shared;
 using NUnit.Framework;
 using ThreeStudio.IPFS.Http;
 using ThreeStudio.IPFS.Internal;
+using ThreeStudio.IPFS.Tests.Shared;
 
 namespace ThreeStudio.IPFS.Tests
 {

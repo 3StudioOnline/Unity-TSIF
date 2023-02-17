@@ -1,10 +1,10 @@
 // Copyright 2023 3S Game Studio OU. All Rights Reserved.
 
-using _00_Project.ThreeStudio.IPFS.Tests.Shared;
 using System.IO;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using ThreeStudio.IPFS.Internal;
+using ThreeStudio.IPFS.Tests.Shared;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,27 +20,6 @@ namespace ThreeStudio.IPFS.Tests
     [SingleThreaded]
     public class IpfsTest
     {
-        public static readonly IpfsHttpGatewayConfig DefaultIpfsHttpGatewayConfig =
-            Ipfs.GetIpfsHttpGatewayConfig(IpfsHttpGateway.IpfsIo);
-
-        public static readonly IpfsPinningServiceConfig DefaultIpfsPinningServiceConfig =
-            Ipfs.GetIpfsPinningServiceConfig(IpfsPinningService.Web3Storage);
-
-        public static readonly string BearerToken_Web3Storage =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEQxQWMyMTQwNTdDMTI2OTMyZjQ3YWVCZEY1MjM0OTRiZmE5MzYyQTAiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzU5NjAwMDAwMTQsIm5hbWUiOiJUU0lGIERlbW8gUHJvamVjdCBCZWFyZXIgVG9rZW4ifQ.Am_B1Vbc_hTIsmfqnOyPi8kJkiJ2vdiCPT3Uqhv7i_o";
-
-        public static readonly IpfsAddress AddressTestImage = new IpfsAddress("bafkreihutddv4nrs3fj246puy72mexgbnf5bvmqug3o2sjgjubia7ka64i");
-
-        public static readonly IpfsAddress AddressTestString = new IpfsAddress("bafkreih77yzma2itvkuw3xnfaarqhi4wcihkd5fg2ihq2kmiwignuaafsm");
-
-        public static readonly IpfsAddress AddressTestImageWithPath = new IpfsAddress(
-            "bafybeidqlo4cju5m3rgw3vpkukfk5yobzgs7xxpuaga4leqfmpwui4fmuu",
-            "3S Studio.png");
-
-        public static readonly IpfsAddress AddressTestStringWithPath = new IpfsAddress(
-            "bafybeifemj2ipsvbzxts6lj4xo3y5cl44ekqqdfgn5tdydqmywyain2jye",
-            "3S Hello.txt");
-
         private string _tmpDir;
 
         [OneTimeSetUp]
@@ -68,8 +47,8 @@ namespace ThreeStudio.IPFS.Tests
 
             bool wait = true;
             IpfsFunctionLibrary.GetData(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestImage,
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestImage,
                 delegate(bool success, string errorMessage, HttpResponse response, byte[] data)
                 {
                     Assert.That(success, Is.True, $"success. Error Message: {errorMessage}");
@@ -92,8 +71,8 @@ namespace ThreeStudio.IPFS.Tests
             await Task.Delay(500);
 
             (bool success, string errorMessage, HttpResponse response, byte[] data) result = await IpfsFunctionLibrary.GetDataAsync(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestImage);
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestImage);
 
             Assert.That(result.success, Is.True, $"success. Error Message: {result.errorMessage}");
             Assert.That(result.errorMessage, Is.Empty, "errorMessage");
@@ -108,8 +87,8 @@ namespace ThreeStudio.IPFS.Tests
 
             bool wait = true;
             IpfsFunctionLibrary.GetDataAsString(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestString,
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestString,
                 delegate(bool success, string errorMessage, HttpResponse response, string dataString)
                 {
                     Assert.That(success, Is.True, $"success. Error Message: {errorMessage}");
@@ -132,8 +111,8 @@ namespace ThreeStudio.IPFS.Tests
             await Task.Delay(500);
 
             (bool success, string errorMessage, HttpResponse response, string dataString) result = await IpfsFunctionLibrary.GetDataAsStringAsync(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestString);
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestString);
 
             Assert.That(result.success, Is.True, $"success. Error Message: {result.errorMessage}");
             Assert.That(result.errorMessage, Is.Empty, "errorMessage");
@@ -142,14 +121,14 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsGetDataImage()
+        public async Task IpfsGetDataAsImage()
         {
             await Task.Delay(500);
 
             bool wait = true;
             IpfsFunctionLibrary.GetDataAsImage(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestImage,
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestImage,
                 delegate(bool success, string errorMessage, HttpResponse response, Texture2D texture)
                 {
                     Assert.That(success, Is.True, $"success. Error Message: {errorMessage}");
@@ -168,13 +147,13 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsGetDataImageAsync()
+        public async Task IpfsGetDataAsImageAsync()
         {
             await Task.Delay(500);
 
             (bool success, string errorMessage, HttpResponse response, Texture2D texture) result = await IpfsFunctionLibrary.GetDataAsImageAsync(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestImage);
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestImage);
 
             Assert.That(result.success, Is.True, $"success. Error Message: {result.errorMessage}");
             Assert.That(result.errorMessage, Is.Empty, "errorMessage");
@@ -192,8 +171,8 @@ namespace ThreeStudio.IPFS.Tests
 
             bool wait = true;
             IpfsFunctionLibrary.DownloadFile(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestImage,
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestImage,
                 tmpFile,
                 false,
                 false,
@@ -228,8 +207,8 @@ namespace ThreeStudio.IPFS.Tests
             string tmpFile = Path.Combine(_tmpDir, "downloaded-file");
 
             (bool success, string errorMessage, HttpResponse response) result = await IpfsFunctionLibrary.DownloadFileAsync(
-                DefaultIpfsHttpGatewayConfig,
-                AddressTestImage,
+                TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
+                TestIpfsConstants.AddressTestImage,
                 tmpFile,
                 false,
                 false);
@@ -260,8 +239,8 @@ namespace ThreeStudio.IPFS.Tests
 
             bool wait = true;
             IpfsFunctionLibrary.UploadFile(
-                DefaultIpfsPinningServiceConfig,
-                BearerToken_Web3Storage,
+                TestIpfsConstants.DefaultIpfsPinningServiceConfig,
+                TestIpfsConstants.BearerToken_Web3Storage,
                 tmpFile,
                 saveAs,
                 delegate(bool success, string errorMessage, HttpResponse response, string cid)
@@ -292,8 +271,8 @@ namespace ThreeStudio.IPFS.Tests
             await File.WriteAllTextAsync(tmpFile, fileContent);
 
             (bool success, string errorMessage, HttpResponse response, string cid) result = await IpfsFunctionLibrary.UploadFileAsync(
-                DefaultIpfsPinningServiceConfig,
-                BearerToken_Web3Storage,
+                TestIpfsConstants.DefaultIpfsPinningServiceConfig,
+                TestIpfsConstants.BearerToken_Web3Storage,
                 tmpFile,
                 saveAs);
 
