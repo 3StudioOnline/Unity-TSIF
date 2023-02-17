@@ -1,3 +1,6 @@
 ﻿{
-  "name": "00_Project.ThreeStudio.IPFS.Tests.Shared"
+  "name": "00_Project.ThreeStudio.IPFS.Tests.Shared",
+      "references": [
+          "GUID:325b68220bc7b6749b14721780b688e7"
+      ]
 }

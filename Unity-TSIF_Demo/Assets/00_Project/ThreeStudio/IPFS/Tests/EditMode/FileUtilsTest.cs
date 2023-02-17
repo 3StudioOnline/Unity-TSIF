@@ -1,7 +1,7 @@
 ﻿// Copyright 2023 3S Game Studio OU. All Rights Reserved.
 
-using _00_Project.ThreeStudio.IPFS.Tests.Shared;
 using NUnit.Framework;
+using ThreeStudio.IPFS.Tests.Shared;
 
 namespace ThreeStudio.IPFS.Tests
 {
