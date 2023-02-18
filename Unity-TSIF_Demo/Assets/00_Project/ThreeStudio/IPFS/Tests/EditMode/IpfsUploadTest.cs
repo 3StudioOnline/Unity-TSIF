@@ -135,11 +135,18 @@ namespace ThreeStudio.IPFS.Tests
             Assert.That(dataOfFileB, Is.Not.Null, "dataOfFileB.NotNull");
             Assert.That(dataOfFileA.Length, Is.EqualTo(dataOfFileB.Length), "size of file A and B are the same");
 
+            bool sameBytes = true;
             for(int index = 0; index < dataOfFileA.Length; index++)
             {
                 bool isSameByte = dataOfFileA[index] == dataOfFileB[index];
-                Assert.That(isSameByte, Is.True, $"byte[{index}] is the same");
+                if(!isSameByte)
+                {
+                    sameBytes = false;
+                    break;
+                }
             }
+
+            Assert.That(sameBytes, Is.True, "sameBytes");
         }
 
         /// <summary>
