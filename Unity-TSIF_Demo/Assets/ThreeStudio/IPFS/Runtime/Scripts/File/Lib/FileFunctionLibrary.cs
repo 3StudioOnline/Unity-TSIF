@@ -36,7 +36,7 @@ namespace ThreeStudio.IPFS
                 outFileStatData.ModificationTime = dirInfo.LastWriteTime;
                 outFileStatData.FileSize = 0;
                 outFileStatData.IsDirectory = true;
-                outFileStatData.IsReadOnly = true;
+                outFileStatData.IsReadOnly = dirInfo.Attributes.HasFlag(FileAttributes.ReadOnly);
                 outFileStatData.IsValid = dirInfo.Exists;
             }
             else
