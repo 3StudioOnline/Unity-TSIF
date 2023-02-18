@@ -21,7 +21,7 @@ namespace ThreeStudio.IPFS.Tests
             Assert.That(fileStatData.ModificationTime, Is.Not.Null, "ModificationTime");
             Assert.That(fileStatData.FileSize, Is.Zero, "FileSize");
             Assert.That(fileStatData.IsDirectory, Is.True, "IsDirectory");
-            Assert.That(fileStatData.IsReadOnly, Is.True, "IsReadOnly");
+            Assert.That(fileStatData.IsReadOnly, Is.False, "IsReadOnly");
             Assert.That(fileStatData.IsValid, Is.True, "IsValid");
         }
 
