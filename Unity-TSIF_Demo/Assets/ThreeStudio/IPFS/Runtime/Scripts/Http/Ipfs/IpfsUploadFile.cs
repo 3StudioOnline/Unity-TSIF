@@ -68,6 +68,8 @@ namespace ThreeStudio.IPFS
                 return (false, error, null, string.Empty);
             }
 
+            if (string.IsNullOrEmpty(saveAs)) saveAs = Path.GetFileName(fileToUpload);
+
             saveAs = saveAs?.Trim();
 
             string id = HttpUtils.GenerateHttpCorrelationID();
