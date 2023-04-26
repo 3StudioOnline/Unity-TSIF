@@ -20,6 +20,8 @@ namespace ThreeStudio.IPFS.Tests
     [SingleThreaded]
     public class IpfsTest
     {
+        private static string[] _saveAsValues = new string[] { null, "", "upload.txt", "sub-dir/upload.txt" };
+
         private string _tmpDir;
 
         [OneTimeSetUp]
@@ -227,12 +229,11 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsFileUpload()
+        public async Task IpfsFileUpload([ValueSource(nameof(_saveAsValues))] string saveAs)
         {
             await Task.Delay(500);
 
-            const string saveAs = "upload.txt";
-            string tmpFile = Path.Combine(_tmpDir, saveAs);
+            string tmpFile = Path.Combine(_tmpDir, "upload.txt");
 
             string fileContent = "Test content " + Random.Range(0, int.MaxValue);
             await File.WriteAllTextAsync(tmpFile, fileContent);
@@ -260,12 +261,11 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsFileUploadAsync()
+        public async Task IpfsFileUploadAsync([ValueSource(nameof(_saveAsValues))] string saveAs)
         {
             await Task.Delay(500);
 
-            const string saveAs = "upload.txt";
-            string tmpFile = Path.Combine(_tmpDir, saveAs);
+            string tmpFile = Path.Combine(_tmpDir, "upload.txt");
 
             string fileContent = "Test content " + Random.Range(0, int.MaxValue);
             await File.WriteAllTextAsync(tmpFile, fileContent);
