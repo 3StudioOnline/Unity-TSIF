@@ -123,10 +123,10 @@ namespace ThreeStudio.IPFS.Tests
             Assert.That(dataOfFileA.Length, Is.EqualTo(dataOfFileB.Length), "size of file A and B are the same");
 
             bool sameBytes = true;
-            for (int index = 0; index < dataOfFileA.Length; index++)
+            for(int index = 0; index < dataOfFileA.Length; index++)
             {
                 bool isSameByte = dataOfFileA[index] == dataOfFileB[index];
-                if (!isSameByte)
+                if(!isSameByte)
                 {
                     sameBytes = false;
                     break;
@@ -150,14 +150,17 @@ namespace ThreeStudio.IPFS.Tests
             Assert.That(dataOfFileB, Is.Not.Null, "dataOfFileB.NotNull");
 
             bool sameLength = dataOfFileA.Length == dataOfFileB.Length;
-            if (!sameLength) return;
+            if(!sameLength)
+            {
+                return;
+            }
 
             // Files of same length can still have different bytes so we need to check this next
             bool sameBytes = true;
-            for (int index = 0; index < dataOfFileA.Length; index++)
+            for(int index = 0; index < dataOfFileA.Length; index++)
             {
                 bool isSameByte = dataOfFileA[index] == dataOfFileB[index];
-                if (!isSameByte)
+                if(!isSameByte)
                 {
                     sameBytes = false;
                     break;
@@ -169,7 +172,10 @@ namespace ThreeStudio.IPFS.Tests
 
         private async Task VerifyDownloadWithoutPathWillFailIfPathSpecified(IpfsAddress goodIpfsAddress, string originalFile)
         {
-            if (goodIpfsAddress.Path == null) return;
+            if(goodIpfsAddress.Path == null)
+            {
+                return;
+            }
 
             IpfsAddress badIpfsAddress = new IpfsAddress(goodIpfsAddress.Cid, null);
 
