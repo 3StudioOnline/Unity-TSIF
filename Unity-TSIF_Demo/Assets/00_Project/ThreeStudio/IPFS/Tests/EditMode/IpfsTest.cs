@@ -20,6 +20,8 @@ namespace ThreeStudio.IPFS.Tests
     [SingleThreaded]
     public class IpfsTest
     {
+        private static string[] _saveAsValues = new string[] { null, "", "upload.txt", "sub-dir/upload.txt" };
+
         private string _tmpDir;
 
         [OneTimeSetUp]
@@ -227,12 +229,11 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsFileUpload()
+        public async Task IpfsFileUpload([ValueSource(nameof(_saveAsValues))] string saveAs)
         {
             await Task.Delay(500);
 
-            const string saveAs = "upload.txt";
-            string tmpFile = Path.Combine(_tmpDir, saveAs);
+            string tmpFile = Path.Combine(_tmpDir, "upload.txt");
 
             string fileContent = "Test content " + Random.Range(0, int.MaxValue);
             await File.WriteAllTextAsync(tmpFile, fileContent);
@@ -260,12 +261,11 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsFileUploadAsync()
+        public async Task IpfsFileUploadAsync([ValueSource(nameof(_saveAsValues))] string saveAs)
         {
             await Task.Delay(500);
 
-            const string saveAs = "upload.txt";
-            string tmpFile = Path.Combine(_tmpDir, saveAs);
+            string tmpFile = Path.Combine(_tmpDir, "upload.txt");
 
             string fileContent = "Test content " + Random.Range(0, int.MaxValue);
             await File.WriteAllTextAsync(tmpFile, fileContent);
@@ -274,6 +274,53 @@ namespace ThreeStudio.IPFS.Tests
                 TestIpfsConstants.DefaultIpfsPinningServiceConfig,
                 TestIpfsConstants.BearerToken_Web3Storage,
                 tmpFile,
+                saveAs);
+
+            Assert.That(result.success, Is.True, $"success. Error Message: {result.errorMessage}");
+            Assert.That(result.errorMessage, Is.Empty, "errorMessage");
+            Assert.That(result.response, Is.Not.Null, "response");
+            Assert.That(result.cid, Is.Not.Null.And.Not.Empty, "cid");
+        }
+
+        [Test]
+        public async Task IpfsDataUpload([ValueSource(nameof(_saveAsValues))] string saveAs)
+        {
+            await Task.Delay(500);
+
+            string dataContent = "Test content " + Random.Range(0, int.MaxValue);
+            byte[] tmpData = StringUtils.StringToBytes(dataContent);
+
+            bool wait = true;
+            IpfsFunctionLibrary.UploadData(
+                TestIpfsConstants.DefaultIpfsPinningServiceConfig,
+                TestIpfsConstants.BearerToken_Web3Storage,
+                tmpData,
+                saveAs,
+                delegate(bool success, string errorMessage, HttpResponse response, string cid)
+                {
+                    Assert.That(success, Is.True, $"success. Error Message: {errorMessage}");
+                    Assert.That(errorMessage, Is.Empty, "errorMessage");
+                    Assert.That(response, Is.Not.Null, "response");
+                    Assert.That(cid, Is.Not.Null.And.Not.Empty, "cid");
+
+                    wait = false;
+                });
+
+            while (wait) await Task.Yield();
+        }
+
+        [Test]
+        public async Task IpfsDataUploadAsync([ValueSource(nameof(_saveAsValues))] string saveAs)
+        {
+            await Task.Delay(500);
+
+            string dataContent = "Test content " + Random.Range(0, int.MaxValue);
+            byte[] tmpData = StringUtils.StringToBytes(dataContent);
+
+            (bool success, string errorMessage, HttpResponse response, string cid) result = await IpfsFunctionLibrary.UploadDataAsync(
+                TestIpfsConstants.DefaultIpfsPinningServiceConfig,
+                TestIpfsConstants.BearerToken_Web3Storage,
+                tmpData,
                 saveAs);
 
             Assert.That(result.success, Is.True, $"success. Error Message: {result.errorMessage}");

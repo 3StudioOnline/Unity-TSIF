@@ -50,7 +50,10 @@ namespace ThreeStudio.IPFS
         /// <param name="ipfsPinningServiceConfig">The pinning service to send the request to.</param>
         /// <param name="bearerToken">The API token for authentication.</param>
         /// <param name="fileToUpload">The file to upload.</param>
-        /// <param name="saveAs">Optional filename or filepath for the uploaded file on IPFS.</param>
+        /// <param name="saveAs">
+        /// Optional alternate filename for the uploaded file on IPFS.
+        /// If left empty, the original filename will be used.
+        /// </param>
         /// <returns>Whether the request was successful, an optional error message, a HTTP response, and a CID.</returns>
         public static async Task<(bool success, string errorMessage, HttpResponse response, string cid)> UploadFileAsync(
             IpfsPinningServiceConfig ipfsPinningServiceConfig,
@@ -63,6 +66,11 @@ namespace ThreeStudio.IPFS
                 string error = $"Could not find file: {fileToUpload}";
                 Debug.LogError(error);
                 return (false, error, null, string.Empty);
+            }
+
+            if(string.IsNullOrEmpty(saveAs))
+            {
+                saveAs = Path.GetFileName(fileToUpload);
             }
 
             saveAs = saveAs?.Trim();

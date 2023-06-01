@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using ThreeStudio.IPFS.Tests.Shared;
 using NUnit.Framework;
+using ThreeStudio.IPFS.Internal;
 using Random = UnityEngine.Random;
 
 namespace ThreeStudio.IPFS.Tests
@@ -17,8 +18,10 @@ namespace ThreeStudio.IPFS.Tests
     /// </summary>
     [TestFixture]
     [SingleThreaded]
-    public class IpfsUploadTest
+    public class IpfsUploadDataTest
     {
+        private static string[] _saveAsValues = new string[] { null, "", "test.txt", "sub-folder/test.txt" };
+
         private string _tmpDir;
 
         [OneTimeSetUp]
@@ -40,48 +43,30 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         [Test]
-        public async Task IpfsDataUploadWithoutPathAsync()
+        public async Task IpfsUploadDataAsync([ValueSource(nameof(_saveAsValues))] string saveAs)
         {
             await Task.Delay(500);
 
-            await UploadAndDownloadWithVerification(null);
+            await UploadDataAndDownloadFileWithVerification(saveAs);
         }
 
-        [Test]
-        public async Task IpfsDataUploadWithPath1Async()
-        {
-            await Task.Delay(500);
-
-            await UploadAndDownloadWithVerification("test.txt");
-        }
-
-        [Test]
-        public async Task IpfsDataUploadWithPath2Async()
-        {
-            await Task.Delay(500);
-
-            await UploadAndDownloadWithVerification("sub-folder/test.txt");
-        }
-
-        private async Task UploadAndDownloadWithVerification(string ipfsPath)
+        private async Task UploadDataAndDownloadFileWithVerification(string ipfsPath)
         {
             // =================================================================
             // Prepare data for uploading
             // =================================================================
 
-            string fileContent = "Test content " + DateTime.Now + " - " + Random.Range(0, int.MaxValue);
-            string fileToUpload = Path.Combine(_tmpDir, "file-to-upload");
-            await File.WriteAllTextAsync(fileToUpload, fileContent);
-            Assert.That(File.Exists(fileToUpload), Is.True, "FileToUpload.Exists");
+            string dataContent = "Test content " + DateTime.Now + " - " + Random.Range(0, int.MaxValue);
+            byte[] tmpData = StringUtils.StringToBytes(dataContent);
 
             // =================================================================
             // Upload data
             // =================================================================
 
-            (bool success, string errorMessage, HttpResponse response, string cid) resultUpload = await IpfsFunctionLibrary.UploadFileAsync(
+            (bool success, string errorMessage, HttpResponse response, string cid) resultUpload = await IpfsFunctionLibrary.UploadDataAsync(
                 TestIpfsConstants.DefaultIpfsPinningServiceConfig,
                 TestIpfsConstants.BearerToken_Web3Storage,
-                fileToUpload,
+                tmpData,
                 ipfsPath);
 
             Assert.That(resultUpload.success, Is.True, $"resultUpload.success. Error Message: {resultUpload.errorMessage}");
@@ -114,32 +99,31 @@ namespace ThreeStudio.IPFS.Tests
             // Verify downloaded data with data we uploaded earlier
             // =================================================================
 
-            await VerifyFilesAreEqual(fileToUpload, writeToFilepath);
+            byte[] downloadedData = await File.ReadAllBytesAsync(writeToFilepath);
 
-            // We want to verify that downloading a file will fail if we don't use a path if that given file was
+            await VerifyDataIsEqual(tmpData, downloadedData);
+
+            // We want to verify that downloading a file will fail if we don't use a path if that given data was
             // originally uploaded using a path.
-            await VerifyDownloadWithoutPathWillFailIfPathSpecified(ipfsAddress, fileToUpload);
+            await VerifyDownloadWithoutPathWillFailIfPathSpecified(ipfsAddress, tmpData);
         }
 
         /// <summary>
-        /// This function verifies that two given files are equal in length and content.
+        /// This function verifies that two given byte[] are equal in length and content.
         /// </summary>
-        /// <param name="filepathA">File A</param>
-        /// <param name="filepathB">File B</param>
-        private async Task VerifyFilesAreEqual(string filepathA, string filepathB)
+        /// <param name="filepathA">Data A</param>
+        /// <param name="filepathB">Data B</param>
+        private async Task VerifyDataIsEqual(byte[] dataA, byte[] dataB)
         {
-            byte[] dataOfFileA = await File.ReadAllBytesAsync(filepathA);
-            byte[] dataOfFileB = await File.ReadAllBytesAsync(filepathB);
-
-            Assert.That(dataOfFileA, Is.Not.Null, "dataOfFileA.NotNull");
-            Assert.That(dataOfFileB, Is.Not.Null, "dataOfFileB.NotNull");
-            Assert.That(dataOfFileA.Length, Is.EqualTo(dataOfFileB.Length), "size of file A and B are the same");
+            Assert.That(dataA, Is.Not.Null, "dataA.NotNull");
+            Assert.That(dataB, Is.Not.Null, "dataB.NotNull");
+            Assert.That(dataA.Length, Is.EqualTo(dataB.Length), "size of dataA and dataB are the same");
 
             bool sameBytes = true;
-            for(int index = 0; index < dataOfFileA.Length; index++)
+            for (int index = 0; index < dataA.Length; index++)
             {
-                bool isSameByte = dataOfFileA[index] == dataOfFileB[index];
-                if(!isSameByte)
+                bool isSameByte = dataA[index] == dataB[index];
+                if (!isSameByte)
                 {
                     sameBytes = false;
                     break;
@@ -150,30 +134,24 @@ namespace ThreeStudio.IPFS.Tests
         }
 
         /// <summary>
-        /// This function verifies that two given files are not equal in length and content.
+        /// This function verifies that two given byte[] are not equal in length and content.
         /// </summary>
-        /// <param name="filepathA">File A</param>
-        /// <param name="filepathB">File B</param>
-        private async Task VerifyFilesAreNotEqual(string filepathA, string filepathB)
+        /// <param name="filepathA">Data A</param>
+        /// <param name="filepathB">Data B</param>
+        private async Task VerifyFilesAreNotEqual(byte[] dataA, byte[] dataB)
         {
-            byte[] dataOfFileA = await File.ReadAllBytesAsync(filepathA);
-            byte[] dataOfFileB = await File.ReadAllBytesAsync(filepathB);
+            Assert.That(dataA, Is.Not.Null, "dataOfFileA.NotNull");
+            Assert.That(dataB, Is.Not.Null, "dataOfFileB.NotNull");
 
-            Assert.That(dataOfFileA, Is.Not.Null, "dataOfFileA.NotNull");
-            Assert.That(dataOfFileB, Is.Not.Null, "dataOfFileB.NotNull");
+            bool sameLength = dataA.Length == dataB.Length;
+            if (!sameLength) return;
 
-            bool sameLength = dataOfFileA.Length == dataOfFileB.Length;
-            if(!sameLength)
-            {
-                return;
-            }
-
-            // Files of same length can still have different bytes so we need to check this next
+            // Data of same length can still have different bytes so we need to check this next
             bool sameBytes = true;
-            for(int index = 0; index < dataOfFileA.Length; index++)
+            for (int index = 0; index < dataA.Length; index++)
             {
-                bool isSameByte = dataOfFileA[index] == dataOfFileB[index];
-                if(!isSameByte)
+                bool isSameByte = dataA[index] == dataB[index];
+                if (!isSameByte)
                 {
                     sameBytes = false;
                     break;
@@ -183,12 +161,9 @@ namespace ThreeStudio.IPFS.Tests
             Assert.That(sameBytes, Is.False, "sameBytes");
         }
 
-        private async Task VerifyDownloadWithoutPathWillFailIfPathSpecified(IpfsAddress goodIpfsAddress, string originalFile)
+        private async Task VerifyDownloadWithoutPathWillFailIfPathSpecified(IpfsAddress goodIpfsAddress, byte[] originalData)
         {
-            if(goodIpfsAddress.Path == null)
-            {
-                return;
-            }
+            if (string.IsNullOrEmpty(goodIpfsAddress.Path)) return;
 
             IpfsAddress badIpfsAddress = new IpfsAddress(goodIpfsAddress.Cid, null);
 
@@ -206,7 +181,9 @@ namespace ThreeStudio.IPFS.Tests
 
             Assert.That(File.Exists(writeToFilepath), Is.True, "writeToFilepath.Exists");
 
-            await VerifyFilesAreNotEqual(originalFile, writeToFilepath);
+            byte[] downloadedData = await File.ReadAllBytesAsync(writeToFilepath);
+
+            await VerifyFilesAreNotEqual(originalData, downloadedData);
         }
     }
 }

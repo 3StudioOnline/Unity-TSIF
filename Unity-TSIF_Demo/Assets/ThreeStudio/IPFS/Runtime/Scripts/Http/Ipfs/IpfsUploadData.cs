@@ -18,7 +18,7 @@ namespace ThreeStudio.IPFS
         /// <param name="ipfsPinningServiceConfig">The pinning service to send the request to.</param>
         /// <param name="bearerToken">The API token for authentication.</param>
         /// <param name="dataToUpload">The data to upload.</param>
-        /// <param name="saveAs">Mandatory filename for the uploaded data on IPFS.</param>
+        /// <param name="saveAs">Optional filename or filepath for the uploaded data on IPFS.</param>
         /// <param name="responseDelegate">
         /// Delegate to handle the response. Will also be called if a request could not be sent
         /// successfully.
