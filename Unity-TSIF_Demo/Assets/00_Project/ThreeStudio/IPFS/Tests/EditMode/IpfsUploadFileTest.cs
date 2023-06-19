@@ -65,7 +65,7 @@ namespace ThreeStudio.IPFS.Tests
             // Upload file
             // =================================================================
 
-            (bool success, string errorMessage, HttpResponse response, string cid) resultUpload = await IpfsFunctionLibrary.UploadFileAsync(
+            (bool success, string errorMessage, HttpResponse response, string cid) resultUpload = await IpfsFunctionLibrary.UploadFile(
                 TestIpfsConstants.DefaultIpfsPinningServiceConfig,
                 TestIpfsConstants.BearerToken_Web3Storage,
                 fileToUpload,
@@ -84,7 +84,7 @@ namespace ThreeStudio.IPFS.Tests
 
             IpfsAddress ipfsAddress = new IpfsAddress(resultUpload.cid, string.IsNullOrEmpty(ipfsPath) ? nameOfFileToUpload : ipfsPath);
 
-            (bool success, string errorMessage, HttpResponse response) resultDownload = await IpfsFunctionLibrary.DownloadFileAsync(
+            (bool success, string errorMessage, HttpResponse response) resultDownload = await IpfsFunctionLibrary.DownloadFile(
                 TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
                 ipfsAddress,
                 writeToFilepath,
@@ -180,7 +180,7 @@ namespace ThreeStudio.IPFS.Tests
             IpfsAddress badIpfsAddress = new IpfsAddress(goodIpfsAddress.Cid, null);
 
             string writeToFilepath = Path.Combine(_tmpDir, "downloaded-file.using-no-path");
-            (bool success, string errorMessage, HttpResponse response) resultVerify = await IpfsFunctionLibrary.DownloadFileAsync(
+            (bool success, string errorMessage, HttpResponse response) resultVerify = await IpfsFunctionLibrary.DownloadFile(
                 TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
                 badIpfsAddress,
                 writeToFilepath,

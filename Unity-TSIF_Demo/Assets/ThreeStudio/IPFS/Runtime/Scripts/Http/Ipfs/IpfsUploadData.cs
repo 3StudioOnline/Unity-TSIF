@@ -30,7 +30,7 @@ namespace ThreeStudio.IPFS
             string saveAs,
             IpfsUploadDataDelegate responseDelegate)
         {
-            (bool success, string errorMessage, HttpResponse response, string cid) result = await UploadDataAsync(
+            (bool success, string errorMessage, HttpResponse response, string cid) result = await UploadData(
                 ipfsPinningServiceConfig,
                 bearerToken,
                 dataToUpload,
@@ -50,7 +50,7 @@ namespace ThreeStudio.IPFS
         /// <param name="dataToUpload">The data to upload.</param>
         /// <param name="saveAs">Optional filename or filepath for the uploaded data on IPFS.</param>
         /// <returns>Whether the request was successful, an optional error message, a HTTP response, and a CID.</returns>
-        public static async Task<(bool success, string errorMessage, HttpResponse response, string cid)> UploadDataAsync(
+        public static async Task<(bool success, string errorMessage, HttpResponse response, string cid)> UploadData(
             IpfsPinningServiceConfig ipfsPinningServiceConfig,
             string bearerToken,
             byte[] dataToUpload,

@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="Project" pattern="file[rider.module]:Assets/00_Project/ThreeStudio//*||file[rider.module]:Assets/ThreeStudio//*" />
+  <scope name="Project" pattern="file:Assets/00_Project/ThreeStudio//*||file:Assets/ThreeStudio//*" />
 </component>

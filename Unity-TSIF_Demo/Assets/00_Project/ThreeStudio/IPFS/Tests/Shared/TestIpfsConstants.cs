@@ -2,7 +2,7 @@
 {
     public static class TestIpfsConstants
     {
-        public static IpfsHttpGatewayConfig DefaultIpfsHttpGatewayConfig = Ipfs.GetIpfsHttpGatewayConfig(IpfsHttpGateway.IpfsIo);
+        public static IpfsHttpGatewayConfig DefaultIpfsHttpGatewayConfig = Ipfs.GetIpfsHttpGatewayConfig(IpfsHttpGateway.W3SLink);
 
         public static readonly IpfsPinningServiceConfig DefaultIpfsPinningServiceConfig =
             Ipfs.GetIpfsPinningServiceConfig(IpfsPinningService.Web3Storage);

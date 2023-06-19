@@ -72,7 +72,7 @@ namespace ThreeStudio.IPFS.Tests
         {
             await Task.Delay(500);
 
-            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await IpfsFunctionLibrary.GetDataAsync(
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await IpfsFunctionLibrary.GetData(
                 TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
                 TestIpfsConstants.AddressTestImage);
 
@@ -112,7 +112,7 @@ namespace ThreeStudio.IPFS.Tests
         {
             await Task.Delay(500);
 
-            (bool success, string errorMessage, HttpResponse response, string dataString) result = await IpfsFunctionLibrary.GetDataAsStringAsync(
+            (bool success, string errorMessage, HttpResponse response, string dataString) result = await IpfsFunctionLibrary.GetDataAsString(
                 TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
                 TestIpfsConstants.AddressTestString);
 
@@ -153,7 +153,7 @@ namespace ThreeStudio.IPFS.Tests
         {
             await Task.Delay(500);
 
-            (bool success, string errorMessage, HttpResponse response, Texture2D texture) result = await IpfsFunctionLibrary.GetDataAsImageAsync(
+            (bool success, string errorMessage, HttpResponse response, Texture2D texture) result = await IpfsFunctionLibrary.GetDataAsImage(
                 TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
                 TestIpfsConstants.AddressTestImage);
 
@@ -208,7 +208,7 @@ namespace ThreeStudio.IPFS.Tests
 
             string tmpFile = Path.Combine(_tmpDir, "downloaded-file");
 
-            (bool success, string errorMessage, HttpResponse response) result = await IpfsFunctionLibrary.DownloadFileAsync(
+            (bool success, string errorMessage, HttpResponse response) result = await IpfsFunctionLibrary.DownloadFile(
                 TestIpfsConstants.DefaultIpfsHttpGatewayConfig,
                 TestIpfsConstants.AddressTestImage,
                 tmpFile,
@@ -270,7 +270,7 @@ namespace ThreeStudio.IPFS.Tests
             string fileContent = "Test content " + Random.Range(0, int.MaxValue);
             await File.WriteAllTextAsync(tmpFile, fileContent);
 
-            (bool success, string errorMessage, HttpResponse response, string cid) result = await IpfsFunctionLibrary.UploadFileAsync(
+            (bool success, string errorMessage, HttpResponse response, string cid) result = await IpfsFunctionLibrary.UploadFile(
                 TestIpfsConstants.DefaultIpfsPinningServiceConfig,
                 TestIpfsConstants.BearerToken_Web3Storage,
                 tmpFile,
@@ -306,7 +306,10 @@ namespace ThreeStudio.IPFS.Tests
                     wait = false;
                 });
 
-            while (wait) await Task.Yield();
+            while(wait)
+            {
+                await Task.Yield();
+            }
         }
 
         [Test]
@@ -317,7 +320,7 @@ namespace ThreeStudio.IPFS.Tests
             string dataContent = "Test content " + Random.Range(0, int.MaxValue);
             byte[] tmpData = StringUtils.StringToBytes(dataContent);
 
-            (bool success, string errorMessage, HttpResponse response, string cid) result = await IpfsFunctionLibrary.UploadDataAsync(
+            (bool success, string errorMessage, HttpResponse response, string cid) result = await IpfsFunctionLibrary.UploadData(
                 TestIpfsConstants.DefaultIpfsPinningServiceConfig,
                 TestIpfsConstants.BearerToken_Web3Storage,
                 tmpData,

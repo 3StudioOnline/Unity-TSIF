@@ -23,7 +23,7 @@ namespace ThreeStudio.IPFS
         /// </param>
         public static async void CalculateCidFromDataForWeb3(byte[] bytes, CalculateCidFromDataForWeb3Delegate responseDelegate)
         {
-            (bool success, string errorMessage, string cid) result = await CalculateCidFromDataForWeb3Async(bytes);
+            (bool success, string errorMessage, string cid) result = await CalculateCidFromDataForWeb3(bytes);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.cid);
         }
 
@@ -32,7 +32,7 @@ namespace ThreeStudio.IPFS
         /// </summary>
         /// <param name="bytes">Data to calculate CID V1 from.</param>
         /// <returns>True, if calculation was successful.</returns>
-        public static async Task<(bool success, string errorMessage, string cid)> CalculateCidFromDataForWeb3Async(byte[] bytes)
+        public static async Task<(bool success, string errorMessage, string cid)> CalculateCidFromDataForWeb3(byte[] bytes)
         {
             string outCid = await Task<string>.Factory.StartNew(
                 delegate()

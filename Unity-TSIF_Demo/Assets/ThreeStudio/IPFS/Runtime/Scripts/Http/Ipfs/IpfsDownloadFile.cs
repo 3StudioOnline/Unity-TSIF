@@ -40,7 +40,7 @@ namespace ThreeStudio.IPFS
             bool overwriteExistingFile,
             IpfsDownloadFileDelegate responseDelegate)
         {
-            (bool success, string errorMessage, HttpResponse response) result = await DownloadFileAsync(
+            (bool success, string errorMessage, HttpResponse response) result = await DownloadFile(
                 ipfsHttpGatewayConfig,
                 ipfsAddress,
                 writeToFilepath,
@@ -64,7 +64,7 @@ namespace ThreeStudio.IPFS
         /// failure. Otherwise, an existing file will be overwritten.
         /// </param>
         /// <returns>Whether the request was successful, an optional error message, and a HTTP response.</returns>
-        public static async Task<(bool success, string errorMessage, HttpResponse response)> DownloadFileAsync(
+        public static async Task<(bool success, string errorMessage, HttpResponse response)> DownloadFile(
             IpfsHttpGatewayConfig ipfsHttpGatewayConfig,
             IpfsAddress ipfsAddress,
             string writeToFilepath,
