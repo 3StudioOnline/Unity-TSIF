@@ -10,7 +10,7 @@ namespace ThreeStudio.IPFS.Examples
 {
     public static class ExampleUtils
     {
-        public const IpfsHttpGateway DefaultIpfsHttpGateway = IpfsHttpGateway.DwebLink;
+        public const IpfsHttpGateway DefaultIpfsHttpGateway = IpfsHttpGateway.W3SLink;
         public const IpfsPinningService DefaultIpfsPinningService = IpfsPinningService.Web3Storage;
 
         private class OptionDataWithUserObject<T> : TMP_Dropdown.OptionData

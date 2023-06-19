@@ -1,7 +1,7 @@
 ﻿// Copyright 2023 3S Game Studio OU. All Rights Reserved.
 
-using _00_Project.ThreeStudio.IPFS.Tests.Shared;
 using NUnit.Framework;
+using ThreeStudio.IPFS.Tests.Shared;
 
 namespace ThreeStudio.IPFS.Tests
 {
@@ -21,7 +21,7 @@ namespace ThreeStudio.IPFS.Tests
             Assert.That(fileStatData.ModificationTime, Is.Not.Null, "ModificationTime");
             Assert.That(fileStatData.FileSize, Is.Zero, "FileSize");
             Assert.That(fileStatData.IsDirectory, Is.True, "IsDirectory");
-            Assert.That(fileStatData.IsReadOnly, Is.True, "IsReadOnly");
+            Assert.That(fileStatData.IsReadOnly, Is.False, "IsReadOnly");
             Assert.That(fileStatData.IsValid, Is.True, "IsValid");
         }
 

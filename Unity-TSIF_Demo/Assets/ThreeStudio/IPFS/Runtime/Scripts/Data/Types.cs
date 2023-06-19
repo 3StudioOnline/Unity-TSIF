@@ -11,6 +11,7 @@ namespace ThreeStudio.IPFS
     public enum IpfsHttpGateway
     {
         Localhost,
+        W3SLink,
         IpfsIo,
         GatewayIpfsIo,
         CloudflareIpfsCom,

@@ -11,7 +11,7 @@ namespace _00_Project.ThreeStudio.IPFS.Scripts
 
             IpfsAddress addressTestString = new IpfsAddress("bafkreih77yzma2itvkuw3xnfaarqhi4wcihkd5fg2ihq2kmiwignuaafsm");
 
-            (bool success, string errorMessage, HttpResponse response, string dataString) result = await IpfsFunctionLibrary.GetDataAsStringAsync(
+            (bool success, string errorMessage, HttpResponse response, string dataString) result = await IpfsFunctionLibrary.GetDataAsString(
                 Ipfs.GetIpfsHttpGatewayConfig(IpfsHttpGateway.GatewayPinataCloud),
                 addressTestString);
             Debug.Log($"Data String (async): {result.dataString}");

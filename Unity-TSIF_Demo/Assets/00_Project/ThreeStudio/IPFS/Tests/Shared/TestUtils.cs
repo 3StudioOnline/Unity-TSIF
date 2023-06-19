@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace _00_Project.ThreeStudio.IPFS.Tests.Shared
+namespace ThreeStudio.IPFS.Tests.Shared
 {
     public static class TestUtils
     {

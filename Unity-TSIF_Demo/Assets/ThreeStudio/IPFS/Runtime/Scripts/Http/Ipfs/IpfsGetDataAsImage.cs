@@ -23,7 +23,7 @@ namespace ThreeStudio.IPFS
             IpfsAddress ipfsAddress,
             IpfsGetDataAsImageDelegate responseDelegate)
         {
-            (bool success, string errorMessage, HttpResponse response, Texture2D texture) result = await GetDataAsImageAsync(
+            (bool success, string errorMessage, HttpResponse response, Texture2D texture) result = await GetDataAsImage(
                 ipfsHttpGatewayConfig,
                 ipfsAddress);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.response, result.texture);
@@ -35,11 +35,11 @@ namespace ThreeStudio.IPFS
         /// <param name="ipfsHttpGatewayConfig">The gateway to send the request to.</param>
         /// <param name="ipfsAddress">The IPFS address.</param>
         /// <returns>Whether the request was successful, an optional error message, a HTTP response, and data as texture.</returns>
-        public static async Task<(bool success, string errorMessage, HttpResponse response, Texture2D texture)> GetDataAsImageAsync(
+        public static async Task<(bool success, string errorMessage, HttpResponse response, Texture2D texture)> GetDataAsImage(
             IpfsHttpGatewayConfig ipfsHttpGatewayConfig,
             IpfsAddress ipfsAddress)
         {
-            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetDataAsync(
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetData(
                 ipfsHttpGatewayConfig,
                 ipfsAddress);
 
