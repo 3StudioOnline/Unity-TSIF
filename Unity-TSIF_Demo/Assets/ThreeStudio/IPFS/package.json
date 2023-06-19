@@ -20,7 +20,7 @@
     "Web3.Storage",
     "NFT",
     "NFT.Storage",
-    "dweb.link"
+    "w3s.link"
   ],
   "category": "Essentials",
   "dependencies": {
