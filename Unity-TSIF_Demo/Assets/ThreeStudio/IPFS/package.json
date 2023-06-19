@@ -2,7 +2,7 @@
   "name": "threestudio.ipfs",
   "displayName": "IPFS",
   "version": "1.0.0",
-  "unity": "2021.3",
+  "unity": "2020.3",
   "documentationUrl": "https://https://3studioonline.github.io/Unity-TSIF-Documentation/",
   "changelogUrl": "https://https://3studioonline.github.io/Unity-TSIF-Documentation/changelog",
   "description": "IPFS is a decentralized storage protocol, that allows you to upload, download and stream to memory any kind of files.",
