@@ -19,7 +19,7 @@ namespace ThreeStudio.IPFS
         /// </param>
         public static async void CalculateCidFromFileForWeb3(string readFromFilepath, CalculateCidFromFileForWeb3Delegate responseDelegate)
         {
-            (bool success, string errorMessage, string cid) result = await CalculateCidFromFileForWeb3Async(readFromFilepath);
+            (bool success, string errorMessage, string cid) result = await CalculateCidFromFileForWeb3(readFromFilepath);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.cid);
         }
 
@@ -28,7 +28,7 @@ namespace ThreeStudio.IPFS
         /// </summary>
         /// <param name="readFromFilepath"></param>
         /// <returns>True, if calculation was successful.</returns>
-        public static async Task<(bool success, string errorMessage, string cid)> CalculateCidFromFileForWeb3Async(string readFromFilepath)
+        public static async Task<(bool success, string errorMessage, string cid)> CalculateCidFromFileForWeb3(string readFromFilepath)
         {
             byte[] bytes;
             try
@@ -40,7 +40,7 @@ namespace ThreeStudio.IPFS
                 return (false, e.Message, null);
             }
 
-            (bool success, string errorMessage, string cid) result = await CalculateCidFromDataForWeb3Async(bytes);
+            (bool success, string errorMessage, string cid) result = await CalculateCidFromDataForWeb3(bytes);
             return (result.success, result.errorMessage, result.cid);
         }
     }

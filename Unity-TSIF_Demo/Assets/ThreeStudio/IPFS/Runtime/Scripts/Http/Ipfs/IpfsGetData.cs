@@ -26,7 +26,7 @@ namespace ThreeStudio.IPFS
             IpfsAddress ipfsAddress,
             IpfsGetDataDelegate responseDelegate)
         {
-            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetDataAsync(ipfsHttpGatewayConfig, ipfsAddress);
+            (bool success, string errorMessage, HttpResponse response, byte[] data) result = await GetData(ipfsHttpGatewayConfig, ipfsAddress);
             responseDelegate?.Invoke(result.success, result.errorMessage, result.response, result.response?.Body);
         }
 
@@ -36,7 +36,7 @@ namespace ThreeStudio.IPFS
         /// <param name="ipfsHttpGatewayConfig">The gateway to send the request to.</param>
         /// <param name="ipfsAddress">The IPFS address.</param>
         /// <returns>Whether the request was successful, an optional error message, a HTTP response, and the data.</returns>
-        public static async Task<(bool success, string errorMessage, HttpResponse response, byte[] data)> GetDataAsync(
+        public static async Task<(bool success, string errorMessage, HttpResponse response, byte[] data)> GetData(
             IpfsHttpGatewayConfig ipfsHttpGatewayConfig,
             IpfsAddress ipfsAddress)
         {
