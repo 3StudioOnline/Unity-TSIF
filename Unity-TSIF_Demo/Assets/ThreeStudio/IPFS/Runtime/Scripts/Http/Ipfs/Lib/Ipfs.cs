@@ -14,6 +14,7 @@ namespace ThreeStudio.IPFS
             new Dictionary<IpfsHttpGateway, IpfsHttpGatewayConfig>
             {
                 { IpfsHttpGateway.Localhost, new IpfsHttpGatewayConfig("http://127.0.0.1:8080") },
+                { IpfsHttpGateway.W3SLink, new IpfsHttpGatewayConfig("https://w3s.link") },
                 { IpfsHttpGateway.IpfsIo, new IpfsHttpGatewayConfig("https://ipfs.io") },
                 { IpfsHttpGateway.GatewayIpfsIo, new IpfsHttpGatewayConfig("https://gateway.ipfs.io") },
                 { IpfsHttpGateway.CloudflareIpfsCom, new IpfsHttpGatewayConfig("https://cloudflare-ipfs.com") },
