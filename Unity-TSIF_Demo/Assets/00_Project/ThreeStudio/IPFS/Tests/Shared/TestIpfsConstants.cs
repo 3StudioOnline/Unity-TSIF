@@ -1,4 +1,6 @@
-﻿namespace ThreeStudio.IPFS.Tests.Shared
+﻿using System;
+
+namespace ThreeStudio.IPFS.Tests.Shared
 {
     public static class TestIpfsConstants
     {
@@ -7,8 +9,7 @@
         public static readonly IpfsPinningServiceConfig DefaultIpfsPinningServiceConfig =
             Ipfs.GetIpfsPinningServiceConfig(IpfsPinningService.Web3Storage);
 
-        public static readonly string BearerToken_Web3Storage =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEQxQWMyMTQwNTdDMTI2OTMyZjQ3YWVCZEY1MjM0OTRiZmE5MzYyQTAiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzU5NjAwMDAwMTQsIm5hbWUiOiJUU0lGIERlbW8gUHJvamVjdCBCZWFyZXIgVG9rZW4ifQ.Am_B1Vbc_hTIsmfqnOyPi8kJkiJ2vdiCPT3Uqhv7i_o";
+        public static readonly string BearerToken_Web3Storage = Environment.GetEnvironmentVariable("TSIF_BEARER_TOKEN_WEB3STORAGE");
 
         public static readonly IpfsAddress AddressTestImage = new IpfsAddress("bafkreihutddv4nrs3fj246puy72mexgbnf5bvmqug3o2sjgjubia7ka64i");
 
